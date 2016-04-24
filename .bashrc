@@ -1,5 +1,5 @@
+export LSCOLORS=gxfxcxdxbxegedabagacad
 
-
-if [ -f ~/.bashrc ] ; then
-. ~/.bashrc
-fi
+alias la='ls -AG'
+alias ls='ls -G'
+alias ll='ls -lG'
