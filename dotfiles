@@ -63,7 +63,7 @@ if [ -n "${OVERWRITE}" -o ! -d ${DOT_DIRECTORY} ]; then
 fi
 
 cd ${DOT_DIRECTORY}
-# source ./lib/brew
+source ./lib/brew
 
 link_files() {
   cd ${DOT_DIRECTORY}
@@ -79,7 +79,7 @@ link_files() {
 }
 
 initialize() {
-  # run_brew
+  run_brew
 
   echo "$(tput setaf 2)Initialize complete!. ✔︎$(tput sgr0)"
 }
