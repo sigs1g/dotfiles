@@ -19,6 +19,10 @@ run_brew() {
       'openssl'
       'wget'
       'tree'
+      'brew-cask'
+      'gcc'
+      'coreutils'
+      'jq'
     )
     
     local installed=`brew list`
@@ -39,6 +43,39 @@ run_brew() {
 
       echo "Installing missing Homebrew formulae..."
       brew install $list_formulae
+
+      [[ $? ]] && echo "$(tput setaf 2)Installed missing formulae ✔︎$(tput sgr0)"
+    fi
+
+    local -a missing_formulae=()
+    local -a desired_formulae=(
+      'alfred'
+      'dropbox'
+      'google-chrome'
+      'google-drive'
+      'skitch'
+      'vagrant'
+      'virtualbox'
+      'iterm2'
+    )
+    # cask
+    local installed=`brew cask list`
+
+    for index in ${!desired_formulae[*]}
+    do
+      local formula=`echo ${desired_formulae[$index]} | cut -d' ' -f 1`
+      if [[ -z `echo "${installed}" | grep "^${formula}$"` ]]; then
+        missing_formulae=("${missing_formulae[@]}" "${desired_formulae[$index]}")
+      else
+        echo "Installed ${formula}"
+      fi
+    done
+
+    if [[ "$missing_formulae" ]]; then
+      list_formulae=$( printf "%s " "${missing_formulae[@]}" )
+
+      echo "Installing missing Homebrew formulae..."
+      brew cask install $list_formulae
 
       [[ $? ]] && echo "$(tput setaf 2)Installed missing formulae ✔︎$(tput sgr0)"
     fi
